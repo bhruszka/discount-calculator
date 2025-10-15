@@ -2,6 +2,12 @@
 
 A flexible, domain-driven discount calculation system for e-commerce shopping carts. Supports multiple discount types with conditional eligibility rules and automatic selection of the best discount per cart item.
 
+---
+
+**Disclaimer:** The system architecture, domain model, and core implementation were designed and developed by me. AI tools were used to assist with writing comprehensive test suites, generating docstrings, and preparing documentation/README content.
+
+---
+
 ## Quick Start
 
 Try the interactive demo to see the system in action:
