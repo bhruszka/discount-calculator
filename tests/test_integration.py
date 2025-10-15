@@ -4,7 +4,6 @@ from domain.entities.discount_condition import (
     ProductCodeDiscountCondition,
 )
 from domain.services.calculator_service import DiscountCalculatorService
-from domain.services.discount_resolver_service import BestDiscountResolverService
 from domain.value_objects import CartItem, Money, Percentage
 
 
@@ -15,8 +14,7 @@ class TestDiscountSystemIntegration:
         """Test fixed discount (-100 EUR) applies to all products."""
         # Setup: Fixed 100 EUR discount on all products
         fixed_discount = AmountDiscount(Money(100, "EUR"), conditions=None)
-        resolver = BestDiscountResolverService([fixed_discount])
-        calculator = DiscountCalculatorService(resolver)
+        calculator = DiscountCalculatorService([fixed_discount])
 
         # Cart with multiple items
         cart_items = [
@@ -35,8 +33,7 @@ class TestDiscountSystemIntegration:
         """Test percentage discount (-10%) applies to all products."""
         # Setup: 10% discount on all products
         percentage_discount = PercentageDiscount(Percentage(10), conditions=None)
-        resolver = BestDiscountResolverService([percentage_discount])
-        calculator = DiscountCalculatorService(resolver)
+        calculator = DiscountCalculatorService([percentage_discount])
 
         # Cart with multiple items
         cart_items = [
@@ -57,8 +54,7 @@ class TestDiscountSystemIntegration:
         volume_discount = AmountDiscount(
             Money(100, "EUR"), conditions=[volume_condition]
         )
-        resolver = BestDiscountResolverService([volume_discount])
-        calculator = DiscountCalculatorService(resolver)
+        calculator = DiscountCalculatorService([volume_discount])
 
         # Cart with items meeting and not meeting volume requirement
         cart_items = [
@@ -81,8 +77,7 @@ class TestDiscountSystemIntegration:
         specific_discount = AmountDiscount(
             Money(50, "EUR"), conditions=[product_condition]
         )
-        resolver = BestDiscountResolverService([specific_discount])
-        calculator = DiscountCalculatorService(resolver)
+        calculator = DiscountCalculatorService([specific_discount])
 
         # Cart with items that match and don't match
         cart_items = [
@@ -104,10 +99,9 @@ class TestDiscountSystemIntegration:
         medium_discount = AmountDiscount(Money(50, "USD"), conditions=None)
         large_discount = AmountDiscount(Money(100, "USD"), conditions=None)
 
-        resolver = BestDiscountResolverService(
+        calculator = DiscountCalculatorService(
             [small_discount, medium_discount, large_discount]
         )
-        calculator = DiscountCalculatorService(resolver)
 
         # Cart with one item
         cart_items = [
@@ -130,8 +124,7 @@ class TestDiscountSystemIntegration:
             Money(100, "EUR"), conditions=[volume_condition, product_condition]
         )
 
-        resolver = BestDiscountResolverService([combined_discount])
-        calculator = DiscountCalculatorService(resolver)
+        calculator = DiscountCalculatorService([combined_discount])
 
         # Cart with various items
         cart_items = [
@@ -158,8 +151,7 @@ class TestDiscountSystemIntegration:
             Percentage(20), conditions=[volume_condition]
         )
 
-        resolver = BestDiscountResolverService([percentage_volume_discount])
-        calculator = DiscountCalculatorService(resolver)
+        calculator = DiscountCalculatorService([percentage_volume_discount])
 
         # Cart items
         cart_items = [
@@ -179,8 +171,7 @@ class TestDiscountSystemIntegration:
         """Test that discount cannot exceed the total price of cart item."""
         # Setup: Very large discount (more than item price)
         huge_discount = AmountDiscount(Money(1000, "EUR"), conditions=None)
-        resolver = BestDiscountResolverService([huge_discount])
-        calculator = DiscountCalculatorService(resolver)
+        calculator = DiscountCalculatorService([huge_discount])
 
         # Cart with low-priced item
         cart_items = [
@@ -199,8 +190,7 @@ class TestDiscountSystemIntegration:
     def test_empty_cart(self):
         """Test that empty cart returns zero discount."""
         discount = AmountDiscount(Money(100, "EUR"), conditions=None)
-        resolver = BestDiscountResolverService([discount])
-        calculator = DiscountCalculatorService(resolver)
+        calculator = DiscountCalculatorService([discount])
 
         total_discount = calculator.calculate_total_discount([])
 
@@ -213,8 +203,7 @@ class TestDiscountSystemIntegration:
         specific_discount = AmountDiscount(
             Money(100, "EUR"), conditions=[product_condition]
         )
-        resolver = BestDiscountResolverService([specific_discount])
-        calculator = DiscountCalculatorService(resolver)
+        calculator = DiscountCalculatorService([specific_discount])
 
         # Cart with different items
         cart_items = [
