@@ -1,0 +1,2 @@
+# Production dependencies
+# This project has no external dependencies for production use
