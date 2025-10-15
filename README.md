@@ -2,6 +2,20 @@
 
 A flexible, domain-driven discount calculation system for e-commerce shopping carts. Supports multiple discount types with conditional eligibility rules and automatic selection of the best discount per cart item.
 
+## Quick Start
+
+Try the interactive demo to see the system in action:
+
+```bash
+python3 demo.py
+```
+
+The demo showcases:
+- Basic discount types (fixed, percentage, volume)
+- Product-specific discounts
+- Combined conditions (e.g., volume + product-specific)
+- Automatic best discount selection
+
 ## Features
 
 - **Fixed Amount Discounts** - Apply a fixed monetary discount (e.g., -100 EUR)
@@ -49,6 +63,8 @@ pre-commit install
 | **Percentage discount** | -X% | -10% |
 | **Volume discount** | -X \<currency\> if at least N products are bought together | -100 EUR if at least 10 products are bought |
 | **Product-specific discount** | Apply discount only to specific product codes | -20% only for products PREMIUM001, PREMIUM002 |
+
+> **Tip:** Run `python3 demo.py` to see all discount types in action with detailed examples!
 
 ### Setting Up Discount Rules
 
