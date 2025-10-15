@@ -1,5 +1,10 @@
 class Money:
-    """Immutable value object representing a monetary amount with currency."""
+    """Immutable value object representing a monetary amount with currency.
+
+    Args:
+        amount: The monetary amount.
+        currency: ISO currency code (e.g., "USD", "EUR").
+    """
 
     def __init__(self, amount: int, currency: str):
         self.__amount = amount
@@ -16,7 +21,17 @@ class Money:
         return self.__currency
 
     def __add__(self, other: "Money") -> "Money":
-        """Add two Money objects. Only same currency allowed."""
+        """Add two Money objects. Only same currency allowed.
+
+        Args:
+            other: Another Money instance to add.
+
+        Returns:
+            New Money instance with combined amount.
+
+        Raises:
+            ValueError: If currencies don't match.
+        """
         if not isinstance(other, Money):
             return NotImplemented
         if self.__currency != other.__currency:
@@ -26,7 +41,14 @@ class Money:
         return Money(self.__amount + other.__amount, self.__currency)
 
     def __radd__(self, other):
-        """Support sum() function with Money objects."""
+        """Support sum() function with Money objects.
+
+        Args:
+            other: Value to add (typically 0 from sum()).
+
+        Returns:
+            Self if other is 0, otherwise result of __add__.
+        """
         # sum() starts with 0, so we need to handle that case
         if other == 0:
             return self
@@ -34,7 +56,14 @@ class Money:
 
 
 class Percentage:
-    """Immutable value object representing a percentage value between 0 and 100."""
+    """Immutable value object representing a percentage value between 0 and 100.
+
+    Args:
+        percentage: Percentage value (0-100).
+
+    Raises:
+        ValueError: If percentage is outside 0-100 range.
+    """
 
     def __init__(self, percentage: int):
         if percentage < 0 or percentage > 100:
@@ -50,7 +79,13 @@ class Percentage:
 
 
 class CartItem:
-    """Immutable value object representing a shopping cart item."""
+    """Immutable value object representing a shopping cart item.
+
+    Args:
+        code: Product identifier code.
+        price: Unit price of the product.
+        quantity: Number of units in cart.
+    """
 
     def __init__(self, code: str, price: Money, quantity: int):
         self.__code = code
